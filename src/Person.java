@@ -1,5 +1,5 @@
 
-public class Person {
+public abstract class Person {
 	
 	private String firstName;
 	private String lastName;
@@ -29,4 +29,12 @@ public class Person {
 	public String getLastName() {
 		return lastName;
 	}
+
+	 void  pay() {
+		return calculatePay();
+		
+	
+	}
+
+	protected abstract Object calculatePay();
 }

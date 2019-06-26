@@ -1,5 +1,4 @@
-public class PaidAdvisor extends Person {
-
+ublic class PaidAdvisor extends Person {
 
 	float regularPayRate;
 	float specialPayRate;
@@ -8,11 +7,14 @@ public class PaidAdvisor extends Person {
 	float hoursOvertime;
 	float hoursSpecial;
 	float hoursWorked;
-	float payRate;	
-	
-	public PaidAdvisor(String firstName, String lastName) {
-	
-		super(firstName, lastName);
+	float payRate;
+	float totalhoursWorked;
+	String name;
+	float money;
+
+	public PaidAdvisor() {
+
+		super();
 
 		regularPayRate = 0;
 		specialPayRate = 0;
@@ -20,39 +22,46 @@ public class PaidAdvisor extends Person {
 		hoursReg = 0;
 		hoursOvertime = 0;
 		hoursSpecial = 0;
+		hoursWorked = 0;
+		name = "";
+		money = 0;
 	}
 
-	public String toString(String firstName, String lastName, String calculatePay) {
+	public String toString(String firstName, String lastName) {
 		String result = super.toString();
+		float calculatePay = pay();
 		result += calculatePay;
 		return result;
 	}
 
-	public float calculatePay(float payRate, float hoursWorked) {
-		float result = hoursWorked * payRate;
-		return result;
+	public float pay() {
+		float hoursWorked = hoursReg + hoursOvertime+ hoursSpecial;
+		float hoursOvertime = hoursWorked - hoursSpecial-30;
+		float hoursReg = hoursSpecial- hoursOvertime;
+		regularPayRate = hoursReg * 25;
+		overtimePayRate = hoursOvertime * (regularPayRate * 1.5f);
+		specialPayRate = hoursSpecial*50;
+		float payRate = regularPayRate + overtimePayRate + specialPayRate;
+		float amount = hoursWorked * payRate;
+		return amount;
+		
 
 	}
 
-	public float getPayRate(float regularPayRate, float overtimePayRate, float hoursReg, float hoursOvertime) {
-		regularPayRate = hoursReg * 25;
-		overtimePayRate = hoursOvertime * (regularPayRate * 1.5f);
-		float payRate = regularPayRate + overtimePayRate;
+	public float getPayRate() {
 		return payRate;
 
 	}
 
-	public float getHoursWorked(float hoursReg, float hoursOvertime) {
-		float hoursWorked = hoursReg + hoursOvertime;
+	public float getHoursWorked() {
 		return hoursWorked;
-
 	}
 
-	public String setNameRatehours(String firstName, String lastName, float payRate, float hoursWorked) {
-		 String name = firstName+ ' ' + lastName;
-		 float result = payRate;
-		 float resulth = hoursWorked;
-		 return name + result +resulth; 
+	public void setNameRatehours(String firstName, String lastName, float payRate, float hoursWorked) {
+		this.setName(firstName, lastName);
+		this.payRate = payRate;
+		this.hoursWorked = hoursWorked;
+
 	}
 
 }
